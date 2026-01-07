@@ -6,11 +6,19 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   root: path.resolve(__dirname),
+  cacheDir: './node_modules/.vite',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
   },
+  resolve: {
+    preserveSymlinks: true,
+  },
   server: {
+    fs: {
+      strict: true,
+      allow: ['./']
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
